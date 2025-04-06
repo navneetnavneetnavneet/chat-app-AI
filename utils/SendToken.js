@@ -10,9 +10,12 @@ module.exports.sendToken = async (user, statusCode, res) => {
     sameSite: "None",
   };
 
+  delete user._doc.password;
+
   res.status(statusCode).cookie("token", token, options).json({
     success: true,
     _id: user._id,
     token: token,
+    // user: user,
   });
 };

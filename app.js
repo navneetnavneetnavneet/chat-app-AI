@@ -8,6 +8,7 @@ const expressSession = require("express-session");
 const cookieParser = require("cookie-parser");
 const ErrorHanlder = require("./utils/ErrorHandler");
 const { generateErrors } = require("./middlewares/errors.middleware");
+const cors = require("cors");
 
 const port = process.env.PORT || 3000;
 
@@ -15,6 +16,9 @@ const userRouter = require("./routes/user.routes");
 
 // database connection
 require("./db/database").connectDatabase();
+
+// cors
+app.use(cors({ origin: process.env.REACT_BASE_URL, credentials: true }));
 
 // morgan middleware for logging requests
 app.use(morgan("dev"));

@@ -18,8 +18,6 @@ module.exports.isAuthenticated = async (req, res, next) => {
 
   try {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decoded);
-
     req._id = decoded;
     next();
   } catch (error) {
