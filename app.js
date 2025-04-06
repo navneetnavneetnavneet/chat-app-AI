@@ -20,14 +20,14 @@ require("./db/database").connectDatabase();
 app.use(morgan("dev"));
 
 // express-session and cookie-parser
-app.use(
-  expressSession({
-    resave: false,
-    saveUninitialized: false,
-    secret: process.env.EXPRESS_SESSION_SECRET,
-  })
-);
-app.use(cookieParser());
+// app.use(
+//   expressSession({
+//     resave: false,
+//     saveUninitialized: false,
+//     secret: process.env.EXPRESS_SESSION_SECRET,
+//   })
+// );
+// app.use(cookieParser());
 
 // body-parser
 app.use(express.json());

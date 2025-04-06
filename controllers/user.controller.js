@@ -6,6 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const userModel = require("../models/user.model");
 const userService = require("../services/user.service");
 const { sendToken } = require("../utils/SendToken");
+const redisClient = require("../services/redis.service");
 
 module.exports.registerUser = catchAsyncError(async (req, res, next) => {
   const errors = validationResult(req);
@@ -43,4 +44,21 @@ module.exports.loginUser = catchAsyncError(async (req, res, next) => {
   }
 
   sendToken(user, 200, res);
+});
+
+module.exports.loggedInUser = catchAsyncError(async (req, res, next) => {
+  const user = await userModel.findById(req._id);
+
+  res.status(200).json(user);
+});
+
+module.exports.logoutUser = catchAsyncError(async (req, res, next) => {
+  const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
+
+  redisClient.set(token, "logout", "EX", 60 * 60 * 24);
+
+  res.status(200).json({
+    success: true,
+    message: "Logout user successfully",
+  });
 });
