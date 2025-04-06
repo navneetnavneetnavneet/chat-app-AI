@@ -1,8 +1,14 @@
+require("dotenv").config({
+  path: "./.env"
+})
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
 
 const port = process.env.PORT || 3000;
+
+// database connection
+require("./db/database").connectDatabase();
 
 // morgan middleware for logging requests
 app.use(morgan("dev"));
