@@ -3,7 +3,7 @@ const router = express.Router();
 const { body } = require("express-validator");
 const userController = require("../controllers/user.controller");
 
-// /users/register
+// POST /users/register
 router.post(
   "/register",
   [
@@ -14,6 +14,18 @@ router.post(
       .withMessage("Password must be between 6 to 15 characters !"),
   ],
   userController.registerUser
+);
+
+// POST /users/login
+router.post(
+  "/login",
+  [
+    body("email").trim().isEmail().withMessage("Invalid email !"),
+    body("password")
+      .isLength({ min: 6, max: 15 })
+      .withMessage("Password must be between 6 to 15 characters !"),
+  ],
+  userController.loginUser
 );
 
 module.exports = router;
