@@ -62,7 +62,7 @@ module.exports.addUserToProject = async ({ projectId, users, userId }) => {
 
   const project = await projectModel.findOne({
     _id: projectId,
-    users: userId.toString(),
+    users: userId,
   });
 
   if (!project) {

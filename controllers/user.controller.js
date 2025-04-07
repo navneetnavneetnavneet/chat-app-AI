@@ -62,3 +62,9 @@ module.exports.logoutUser = catchAsyncError(async (req, res, next) => {
     message: "Logout user successfully",
   });
 });
+
+module.exports.getAllUsers = catchAsyncError(async (req, res, next) => {
+  const allUsers = await userService.getAllUsers(req._id);
+
+  res.status(200).json(allUsers);
+});

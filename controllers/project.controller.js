@@ -26,8 +26,7 @@ module.exports.createProject = catchAsyncError(async (req, res, next) => {
 });
 
 module.exports.getAllProjects = catchAsyncError(async (req, res, next) => {
-  const user = await userModel.findById(req._id);
-  const userId = user._id;
+  const userId = req._id;
 
   const projects = await projectService.getAllProjectsByUserId(userId);
 
@@ -46,8 +45,7 @@ module.exports.addUserToProject = catchAsyncError(async (req, res, next) => {
   }
 
   const { projectId, users } = req.body;
-  const user = await userModel.findById(req._id);
-  const userId = user._id;
+  const userId = req._id;
 
   const project = await projectService.addUserToProject({
     projectId,

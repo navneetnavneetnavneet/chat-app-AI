@@ -13,3 +13,13 @@ module.exports.createUser = async ({ fullName, email, password }) => {
 
   return user;
 };
+
+module.exports.getAllUsers = async (userId) => {
+  if (!userId) {
+    throw new Error("userId is required !");
+  }
+
+  const allUsers = await userModel.find({ _id: { $ne: userId } });
+
+  return allUsers;
+};

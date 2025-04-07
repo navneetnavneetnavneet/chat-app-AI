@@ -39,4 +39,7 @@ router.get(
 // GET /users/logout
 router.get("/logout", userController.logoutUser);
 
+// GET /users/all
+router.get("/all", authMiddleware.isAuthenticated, userController.getAllUsers);
+
 module.exports = router;

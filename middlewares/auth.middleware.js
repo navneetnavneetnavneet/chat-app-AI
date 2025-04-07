@@ -18,7 +18,7 @@ module.exports.isAuthenticated = async (req, res, next) => {
 
   try {
     const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    req._id = decoded;
+    req._id = decoded._id;
     next();
   } catch (error) {
     return next(new ErrorHandler("Unauthorized User !", 401));
