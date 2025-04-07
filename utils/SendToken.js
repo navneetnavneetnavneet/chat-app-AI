@@ -16,6 +16,6 @@ module.exports.sendToken = async (user, statusCode, res) => {
     success: true,
     _id: user._id,
     token: token,
-    // user: user,
+    user: user,
   });
 };

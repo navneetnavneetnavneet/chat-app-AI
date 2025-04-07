@@ -1,6 +1,3 @@
-require("dotenv").config({
-  path: "./.env",
-});
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
@@ -10,9 +7,8 @@ const ErrorHanlder = require("./utils/ErrorHandler");
 const { generateErrors } = require("./middlewares/errors.middleware");
 const cors = require("cors");
 
-const port = process.env.PORT || 3000;
-
 const userRouter = require("./routes/user.routes");
+const projectRouter = require("./routes/project.routes");
 
 // database connection
 require("./db/database").connectDatabase();
@@ -24,14 +20,14 @@ app.use(cors({ origin: process.env.REACT_BASE_URL, credentials: true }));
 app.use(morgan("dev"));
 
 // express-session and cookie-parser
-// app.use(
-//   expressSession({
-//     resave: false,
-//     saveUninitialized: false,
-//     secret: process.env.EXPRESS_SESSION_SECRET,
-//   })
-// );
-// app.use(cookieParser());
+app.use(
+  expressSession({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.EXPRESS_SESSION_SECRET,
+  })
+);
+app.use(cookieParser());
 
 // body-parser
 app.use(express.json());
@@ -39,6 +35,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.use("/users/", userRouter);
+app.use("/projects/", projectRouter);
 
 // error handling
 app.all("*", (req, res, next) => {
@@ -46,7 +43,4 @@ app.all("*", (req, res, next) => {
 });
 app.use(generateErrors);
 
-// start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+module.exports = app;
