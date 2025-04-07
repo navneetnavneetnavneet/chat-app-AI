@@ -23,3 +23,15 @@ module.exports.createProject = catchAsyncError(async (req, res, next) => {
 
   res.status(201).json(newProject);
 });
+
+module.exports.getAllProjects = catchAsyncError(async (req, res, next) => {
+  const userId = req._id;
+
+  const projects = await projectService.getAllProjectsByUserId(userId);
+
+  if (!projects) {
+    return next(new ErrorHandler("No projects found !", 404));
+  }
+
+  res.status(200).json(projects);
+});

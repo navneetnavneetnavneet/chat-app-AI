@@ -15,4 +15,11 @@ router.post(
   projectController.createProject
 );
 
+// POST /projects/all
+router.post(
+  "/all",
+  authMiddleware.isAuthenticated,
+  projectController.getAllProjects
+);
+
 module.exports = router;

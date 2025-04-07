@@ -16,3 +16,17 @@ module.exports.createProject = async ({ projectName, userId }) => {
 
   return project;
 };
+
+module.exports.getAllProjectsByUserId = async (userId) => {
+    if(!userId){
+        throw new Error("userId is required !")
+    }
+
+    const allProjects = await projectModel.find({ users: userId });
+
+    if (!allProjects) {
+        throw new Error("No projects found !")
+    }
+
+    return allProjects;
+}
