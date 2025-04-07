@@ -35,4 +35,11 @@ router.put(
   projectController.addUserToProject
 );
 
+// GET /projects/get-project/:projectId
+router.get(
+  "/get-project/:projectId",
+  authMiddleware.isAuthenticated,
+  projectController.getProjectById
+);
+
 module.exports = router;

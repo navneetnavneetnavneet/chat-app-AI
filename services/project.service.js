@@ -83,3 +83,21 @@ module.exports.addUserToProject = async ({ projectId, users, userId }) => {
 
   return updatedProject;
 };
+
+module.exports.getProjectById = async (projectId) => {
+  if (!projectId) {
+    throw new Error("projectId is required !");
+  }
+
+  if (!mongoose.Types.ObjectId.isValid(projectId)) {
+    throw new Error("Invalid projectId !");
+  }
+
+  const project = await projectModel.findById(projectId).populate("users");
+
+  if (!project) {
+    throw new Error("Project is not found !");
+  }
+
+  return project;
+};

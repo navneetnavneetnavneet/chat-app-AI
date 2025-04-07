@@ -55,3 +55,11 @@ module.exports.addUserToProject = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json(project);
 });
+
+module.exports.getProjectById = catchAsyncError(async (req, res, next) => {
+  const { projectId } = req.params;
+
+  const project = await projectService.getProjectById(projectId);
+
+  res.status(200).json(project);
+});
