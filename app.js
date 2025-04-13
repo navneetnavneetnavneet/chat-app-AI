@@ -9,6 +9,7 @@ const cors = require("cors");
 
 const userRouter = require("./routes/user.routes");
 const projectRouter = require("./routes/project.routes");
+const aiRouter = require("./routes/ai.routes");
 
 // database connection
 require("./db/database").connectDatabase();
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 // routes
 app.use("/users/", userRouter);
 app.use("/projects/", projectRouter);
+app.use("/ai", aiRouter);
 
 // error handling
 app.all("*", (req, res, next) => {
